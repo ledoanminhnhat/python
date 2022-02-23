@@ -1,10 +1,10 @@
 #khai báo 
-from random import random
+
 import turtle
 import time
 import random
 
-dừng = 0.1
+chờ = 0.1
 
 # điểm
 điểm =0 
@@ -13,7 +13,7 @@ dừng = 0.1
 #tạo màn hình
 sk= turtle.Screen()
 sk.title("Game Rắn")
-sk.bgcolor('blue')
+sk.bgcolor('orange')
 sk.setup(width=600,height=600)
 sk.tracer(0)
 
@@ -29,8 +29,8 @@ sk.tracer(0)
 # Mồi rắn
 thuc_an=turtle.Turtle()
 thuc_an.speed(0)
-thuc_an.shape("square")
-thuc_an.color("red")
+thuc_an.shape("circle")
+thuc_an.color("yellow")
 thuc_an.penup()
 thuc_an.goto(0,100)
 
@@ -40,11 +40,11 @@ nhieu_phan=[]
 bd= turtle.Turtle()
 bd.speed(0)
 bd.shape("square")
-bd.color("black")
+bd.color("red")
 bd.penup()
 bd.hideturtle()
 bd.goto(0,260)
-bd.write("điểm: 0  điểm cao nhất: 0", align= "trung tâm", font=("ds-digital", 24,"normal"))
+bd.write("điểm: 0 điểm cao nhất: 0", font=("ds-digital", 15,"normal"))
 
 #chuc nang
 def di_len():
@@ -68,10 +68,10 @@ def move():
         đầu.sety(y-20)
     if đầu.direction =="left":
         x= đầu.xcor()
-        đầu.xcor(x-20)
+        đầu.setx(x-20)
     if đầu.direction =="right":
         x= đầu.xcor()
-        đầu.xcor(x+20)
+        đầu.setx(x+20)
 
 #thiết lập nút điều khiển
 sk.listen()
@@ -79,7 +79,7 @@ sk.onkeypress(di_len,"w")
 sk.onkeypress(di_xuong,"s")
 sk.onkeypress(re_phai,"d")
 sk.onkeypress(re_trai,"a")
-
+#Mainloop
 while True:
     sk.update()
     #kiem tra 
@@ -91,14 +91,14 @@ while True:
         for đoạn in nhieu_phan:
             đoạn.goto(1000,1000) #giới hạn
         #xóa tất cả đoạn cơ thể
-        đoạn.clear()
+        nhieu_phan.clear()
         #làm mới điểm
         điểm=0
-        #làm mới dừng
-        dừng =0.1
+        #làm mới chờ
+        chờ =0.1
 
         bd.clear()
-        bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),align= "trung tâm",font=("ds-digital",24,"normal"))
+        bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),font=("ds-digital",15,"normal"))
     #kiểm tra va chạm với mồi
     if đầu.distance(thuc_an)<20:
         #di chuyển thức ăn đến nơi bất kì
@@ -110,19 +110,19 @@ while True:
         đoạn_mới= turtle.Turtle()
         đoạn_mới.speed(0)
         đoạn_mới.shape("square")
-        đoạn_mới.color("black")
+        đoạn_mới.color("green")
         đoạn_mới.penup()
         nhieu_phan.append(đoạn_mới)
 
         #giảm thời gian chờ
-        dừng -= 0.001
+        chờ -= 0.001
         #tăng điểm 
         điểm += 10
 
         if điểm >điểm_cao:
             điểm_cao= điểm
         bd.clear()
-        bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),align= 'trung tâm',font=("ds-digital",24,"normal"))
+        bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),font=("ds-digital",15,"normal"))
     #di chuyển các đoạn đến nơi định trc
     for index in range(len(nhieu_phan)-1,0,-1):
         x = nhieu_phan[index-1].xcor()
@@ -146,14 +146,14 @@ while True:
                 đoạn.goto(1000,1000)
             nhieu_phan.clear()
             điểm=0
-            dừng=0.1
+            chờ=0.1
 
             #cập nhật điểm
             bd.clear()
-            bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),align= 'trung tâm',font=("ds-digital",24,"normal"))
-    time.sleep(dừng)
+            bd.write("điểm:{} điểm cao nhất:{}".format(điểm, điểm_cao),font=("ds-digital",15,"normal"))
+    time.sleep(chờ)
 
-    sk.mainloop()
+sk.mainloop()
 
 
         
